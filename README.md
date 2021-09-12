@@ -1,4 +1,4 @@
-# Face Mask Detection using Trained Mobilenet V2.
+# Server side architecture for a Face Mask Detection system using the Mobilenet V2 network.
 
 ### Further plans:
 
