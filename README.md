@@ -13,10 +13,11 @@
 git clone <repo link>
 ```
 
-* open shell instance, navigate to the directory you saved the file. Create new virtual environment and install test_requirements.txt file
+* open shell instance, navigate to the directory you saved the file. Create new virtual environment, activate it and install test_requirements.txt file.
 
 ```  
 py -m virtualenv -p=<your preferred python executable (eg: 3.8.3)> <env name>
+<env name>\Scripts\activate.bat
 pip install -r test_requirements.txt 
 ```
 
