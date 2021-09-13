@@ -35,7 +35,7 @@ CATEGORIES = ["with_mask", "without_mask"]
 
 # grab the list of images in our dataset directory, then initialize
 # the list of data (i.e., images) and class images
-logger.info("[INFO] loading images...")
+logger.info("Loading images...")
 
 data = []
 labels = []
@@ -96,10 +96,9 @@ headModel = AveragePooling2D(pool_size=(5, 5))(headModel)
 headModel = Flatten(name="flatten")(headModel)
 headModel = Dense(128, activation="relu")(headModel)
 headModel = Dropout(0.5)(headModel)
-headModel = Dense(2, activation="softmax")(headModel)
+headModel = Dense(2, activation="sigmoid")(headModel)
 
-# place the head FC model on top of the base model (this will become
-# the actual model we will train)
+# place the head FC model on top of the base model
 model = Model(inputs=baseModel.input, outputs=headModel)
 
 # loop over all layers in the base model and freeze them so they will
@@ -107,7 +106,7 @@ model = Model(inputs=baseModel.input, outputs=headModel)
 for layer in baseModel.layers:
 	layer.trainable = False
 
-# compile our model
+# compile model
 opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
@@ -125,15 +124,14 @@ H = model.fit(
 logger.info("Evaluating network...")
 predIdxs = model.predict(testX, batch_size=BS)
 
-# for each image in the testing set we need to find the index of the
-# label with corresponding largest predicted probability
+# find the index of the label with corresponding largest predicted probability
 predIdxs = np.argmax(predIdxs, axis=1)
 
-# show a nicely formatted classification report
+# classification report
 print(classification_report(testY.argmax(axis=1), predIdxs,
 	target_names=lb.classes_))
 
-# serialize the model to disk
+# serialize the model
 logger.info("Saving mask detector model...")
 model.save("mask_detector.model", save_format="h5")
 

@@ -11,20 +11,7 @@ import logging
 import os
 from app_logger import app_logger
 
-# # Logs directory
-# logs_dir = "logfiles"
-# logfile_name = "video_logs"
-
-# # Define logger object, add formatters and handlers
-# logger = logging.getLogger(__name__)
-# logger.setLevel(logging.INFO)
-
-# file_handler = logging.FileHandler(os.path.join(logs_dir,logfile_name))
-# formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(name)s : %(message)s')
-
-# file_handler.setFormatter(formatter)
-# logger.addHandler(file_handler)
-
+# define logger object
 logger = app_logger(logfile_name="video_logs.log",log_level="INFO",dest=__name__)
 
 
@@ -121,8 +108,7 @@ while True:
 
 
 	logger.info("Displaying bounding boxes...")
-	# loop over the detected face locations and their corresponding
-	# locations
+	# loop over the detected face locations 
 	for (box, pred) in zip(locs, preds):
 		# unpack the bounding box and predictions
 		(startX, startY, endX, endY) = box
@@ -131,7 +117,9 @@ while True:
 		# determine the class label and color we'll use to draw
 		# the bounding box and text
 		label = "Mask" if mask > withoutMask else "No Mask"
-		color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
+		
+		# green for mask else red 
+		color = (255, 0, 0) if label == "Mask" else (0, 0, 255)
 
 		# include the probability in the label
 		label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
