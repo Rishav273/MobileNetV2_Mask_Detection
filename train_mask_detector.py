@@ -19,7 +19,7 @@ from imutils import paths
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-from app_logger imprt app_logger
+from app_logger import app_logger
 
 
 logger = app_logger(logfile_name="train_logs.log",log_level="INFO",dest=__name__)
@@ -30,7 +30,7 @@ INIT_LR = 1e-4
 EPOCHS = 20
 BS = 32
 
-DIRECTORY = r"C:\Mask Detection\CODE\Face-Mask-Detection-master\dataset"
+DIRECTORY = r"C:\My Personal Files\MY DATA SCIENCE PROJECTS\COVID Face Mask Classification\Face-Mask-Detection\dataset"
 CATEGORIES = ["with_mask", "without_mask"]
 
 # grab the list of images in our dataset directory, then initialize
@@ -131,9 +131,13 @@ predIdxs = np.argmax(predIdxs, axis=1)
 print(classification_report(testY.argmax(axis=1), predIdxs,
 	target_names=lb.classes_))
 
+logger.info("Classification report generated.")
+
 # serialize the model
 logger.info("Saving mask detector model...")
 model.save("mask_detector.model", save_format="h5")
+
+logger.info("Model saved.")
 
 logger.info("Saving training plots...")
 # plot the training loss and accuracy
@@ -149,3 +153,5 @@ plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend(loc="lower left")
 plt.savefig("plot.png")
+
+logger.info("Plot saved.")
