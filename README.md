@@ -21,13 +21,13 @@ py -m virtualenv -p=<your preferred python executable (eg: 3.8.3)> <env name>
 pip install -r test_requirements.txt 
 ```
 
-* Note: If you're unsure where your python execs are located, run the following command in the shell
+* Note: If you're unsure where the python execs are located on your system, run the following command in the shell
 
 ```
 where python
 ```
 
-This will show the paths to all your execs. Copy your favoured path and paste it in <your preferred python executable> part above.
+This will show the paths to all your execs. Copy your favoured path and paste it in the "your preferred python executable" part above.
 
 * Run detect_mask.py
 
